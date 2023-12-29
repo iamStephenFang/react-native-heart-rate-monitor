@@ -1,0 +1,45 @@
+{
+  "name": "hrmonitor",
+  "version": "0.0.1",
+  "private": true,
+  "scripts": {
+    "android": "react-native run-android",
+    "ios": "react-native run-ios",
+    "start": "react-native start",
+    "test": "jest",
+    "lint": "eslint .",
+    "postinstall": "react-native setup-ios-permissions && pod-install"
+  },
+  "dependencies": {
+    "@react-navigation/native": "^6.1.7",
+    "@react-navigation/native-stack": "^6.9.13",
+    "react": "17.0.2",
+    "react-native": "0.68.5",
+    "react-native-animateable-text": "^0.10.2",
+    "react-native-keep-awake": "^4.0.0",
+    "react-native-permissions": "^3.8.0",
+    "react-native-progress-circle": "^2.1.0",
+    "react-native-reanimated": "^2.7.0",
+    "react-native-safe-area-context": "^4.7.0",
+    "react-native-screens": "^3.25.0",
+    "react-native-vision-camera": "2.15.2"
+  },
+  "reactNativePermissionsIOS": [
+    "Camera",
+    "LocationWhenInUse"
+  ],
+  "devDependencies": {
+    "@babel/core": "^7.12.9",
+    "@babel/runtime": "^7.12.5",
+    "@react-native-community/eslint-config": "^2.0.0",
+    "babel-jest": "^26.6.3",
+    "eslint": "^7.32.0",
+    "jest": "^26.6.3",
+    "metro-react-native-babel-preset": "^0.67.0",
+    "pod-install": "0.1.38",
+    "react-test-renderer": "17.0.2"
+  },
+  "jest": {
+    "preset": "react-native"
+  }
+}
