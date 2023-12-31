@@ -1,6 +1,6 @@
 //
 //  PulseDector.swift
-//  Rehab
+//  HR Monitor
 //
 //  Created by StephenFang on 2022/12/20.
 //

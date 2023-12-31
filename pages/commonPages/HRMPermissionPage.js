@@ -1,3 +1,7 @@
+/**
+ * @format
+ * @flow strict-local
+*/
 import React, { useEffect, useState, useCallback } from 'react';
 import {
     Text,
@@ -9,6 +13,7 @@ import {
 } from 'react-native';
 import { colorStyle } from '../colorStyle';
 import { Camera } from 'react-native-vision-camera';
+
 
 export function HRMPermissionPage({ navigation, route }) {
 
