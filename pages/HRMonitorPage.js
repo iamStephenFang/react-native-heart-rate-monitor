@@ -17,9 +17,9 @@ import KeepAwake from 'react-native-keep-awake';
 import { Camera, useCameraDevices, useFrameProcessor } from 'react-native-vision-camera';
 import AnimateableText from 'react-native-animateable-text';
 import Reanimated, { useSharedValue, useAnimatedProps, runOnJS } from 'react-native-reanimated';
-import { getHeartRate } from '../utils/getHeartRate';
+import { getHeartRate } from './utils/getHeartRate';
 import ProgressCircle from 'react-native-progress-circle'
-import { colorStyle } from '../colorStyle';
+import { colorStyle } from './utils/colorStyle';
 
 export function HRMonitorPage({ navigation, route }) {
     const totalFramesCount = 350
@@ -135,14 +135,14 @@ export function HRMonitorPage({ navigation, route }) {
                     {state != 'END' &&
                         <Image
                             style={{ width: 190, height: 190, alignItems: 'center', margin: 100 }}
-                            source={require('../../source/finger.png')}
+                            source={require('../source/finger.png')}
                             resizeMode='contain'
                         />
                     }
                     {state == 'END' &&
                         <Image
                             style={{ width: 190, height: 190, alignItems: 'center', margin: 100 }}
-                            source={require('../../source/heart.png')}
+                            source={require('../source/heart.png')}
                             resizeMode='contain'
                         />
                     }

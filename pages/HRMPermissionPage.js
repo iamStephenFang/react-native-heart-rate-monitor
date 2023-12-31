@@ -11,7 +11,7 @@ import {
     StyleSheet,
     Linking
 } from 'react-native';
-import { colorStyle } from '../colorStyle';
+import { colorStyle } from './utils/colorStyle';
 import { Camera } from 'react-native-vision-camera';
 
 
@@ -49,7 +49,7 @@ export function HRMPermissionPage({ navigation, route }) {
             </Text>
             <Image
                 style={{ width: 180, height: 180, alignSelf: 'center', margin: 100 }}
-                source={require('../../source/camera.png')}
+                source={require('../source/camera.png')}
                 resizeMode='contain'
             />
             <TouchableOpacity style={styles.button} onPress={requestCameraPermission}>

@@ -13,7 +13,7 @@ import {
     View,
     Image
 } from 'react-native';
-import { colorStyle } from '../colorStyle';
+import { colorStyle } from './utils/colorStyle';
 import { Camera } from 'react-native-vision-camera';
 
 
@@ -62,7 +62,7 @@ export function HRInputPage({ navigation, route }) {
                 <TouchableOpacity style={styles.heartRateButton} onPress={onOpenHR}>
                     <View style={{ alignItems: 'center', flexDirection: 'row', height: 60 }}>
                         <Text style={colorStyle.NavigateButton.Text}>{'偵測心率 '}</Text>
-                        <Image source={require('../../source/heart_icon.png')} style={{ width: 26, height: 22 }} />
+                        <Image source={require('../source/heart_icon.png')} style={{ width: 26, height: 22 }} />
                     </View>
                 </TouchableOpacity>
             </View>

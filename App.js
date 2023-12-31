@@ -4,7 +4,7 @@
  */
 import React from 'react';
 import { NavigationContainer } from '@react-navigation/native';
-import { HRStackScreen } from './pages/commonPages/HRStackScreen';
+import { HRStackScreen } from './pages/HRStackScreen';
 
 
 const App = () => {

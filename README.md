@@ -1,2 +1,2 @@
 # HRMonitor
-HRMonitor （心率監測） App for HKPolyU
+HRMonitor （心率監測） App for HKPolyU.
