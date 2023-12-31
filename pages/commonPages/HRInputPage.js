@@ -48,70 +48,42 @@ export function HRInputPage({ navigation, route }) {
         navigation.push(showPermissionsPage ? 'Permission' : 'Monitor')
     }
 
-    function _onChangeText(val) {
-        if (val.length > 3 || val.includes('.') || val.includes('/') || val.includes('-')) {
-            return;
-        } else {
-            setText(val)
-        }
-    }
     const textdata = [
         { id: '1. ', text: <Text style={{ color: '#544343' }}>請按下<Text style={{ color: '#F76B43', fontWeight: '500' }}>「偵測心率」</Text>按鈕，並轉至偵測心率頁面。</Text> },
-        { id: '2. ', text: '按照指示偵測心率。' },
-        { id: '3. ', text: '記下結果' },
+        { id: '2. ', text: '按照指示偵測心率。' }
     ];
 
     const showPermissionsPage = cameraPermission !== 'authorized'
 
     return (
-        <SafeAreaView style={{ flex: 1, backgroundColor: colorStyle.Navigation.background }}>
-            <ScrollView contentContainerStyle={{ alignItems: 'center' }}>
-                <View style={{ backgroundColor: '#FFF1D7', margin: 20, borderRadius: 10, overflow: "hidden", padding: 20 }}>
-                    <View style={{ flexDirection: 'row', margin: 5 }}>
-                        <Text style={{ color: '#544343', fontSize: 20, textAlign: 'left', fontWeight: 'bold' }}>{textdata[0].id}</Text>
-                        <Text style={{ color: '#544343', fontSize: 20, textAlign: 'left', fontWeight: '400' }}>{textdata[0].text}</Text>
-                    </View>
-                    <View style={{ flexDirection: 'row', margin: 5 }}>
-                        <Text style={{ color: '#544343', fontSize: 20, textAlign: 'left', fontWeight: 'bold' }}>{textdata[1].id}</Text>
-                        <Text style={{ color: '#544343', fontSize: 20, textAlign: 'left', fontWeight: '400' }}>{textdata[1].text}</Text>
-                    </View>
-                    <View style={{ flexDirection: 'row', margin: 5 }}>
-                        <Text style={{ color: '#544343', fontSize: 20, textAlign: 'left', fontWeight: 'bold' }}>{textdata[2].id}</Text>
-                        <Text style={{ color: '#544343', fontSize: 20, textAlign: 'left', fontWeight: '400' }}>{textdata[2].text}</Text>
-                    </View>
+        <SafeAreaView style={styles.container}>
+            <View style={{ backgroundColor: '#FFF1D7', margin: 20, borderRadius: 10, overflow: "hidden", padding: 20 }}>
+                <View style={{ flexDirection: 'row', margin: 5 }}>
+                    <Text style={{ color: '#544343', fontSize: 20, textAlign: 'left', fontWeight: 'bold' }}>{textdata[0].id}</Text>
+                    <Text style={{ color: '#544343', fontSize: 20, textAlign: 'left', fontWeight: '400' }}>{textdata[0].text}</Text>
                 </View>
-                <View style={{ flexDirection: 'row', justifyContent: 'center', marginTop: 80 }}>
-                    <TextInput
-                        style={styles.input}
-                        placeholder="按此輸入"
-                        placeholderTextColor="#808080"
-                        onChangeText={text => _onChangeText(text)}
-                        keyboardType={'numeric'}
-                        value={text}
-                    />
-                    <Image source={require('../../source/icons/input_icon.png')} style={{ width: 23, height: 23, alignSelf: 'center' }} />
+                <View style={{ flexDirection: 'row', margin: 5 }}>
+                    <Text style={{ color: '#544343', fontSize: 20, textAlign: 'left', fontWeight: 'bold' }}>{textdata[1].id}</Text>
+                    <Text style={{ color: '#544343', fontSize: 20, textAlign: 'left', fontWeight: '400' }}>{textdata[1].text}</Text>
                 </View>
-                <View style={{ alignItems: 'center', justifyContent: 'center' }}>
-                    <TouchableOpacity style={styles.heartRateButton} onPress={onOpenHR}>
-                        <View style={{ alignItems: 'center', flexDirection: 'row', height: 60 }}>
-                            <Text style={colorStyle.NavigateButton.Text}>{'偵測心率 '}</Text>
-                            <Image source={require('../../source/icons/heart_icon.png')} style={{ width: 26, height: 22 }} />
-                        </View>
-                    </TouchableOpacity>
-                </View>
-            </ScrollView>
+            </View>
+            <View style={{ alignItems: 'center', justifyContent: 'center' }}>
+                <TouchableOpacity style={styles.heartRateButton} onPress={onOpenHR}>
+                    <View style={{ alignItems: 'center', flexDirection: 'row', height: 60 }}>
+                        <Text style={colorStyle.NavigateButton.Text}>{'偵測心率 '}</Text>
+                        <Image source={require('../../source/heart_icon.png')} style={{ width: 26, height: 22 }} />
+                    </View>
+                </TouchableOpacity>
+            </View>
         </SafeAreaView >
     )
 }
 
 const styles = StyleSheet.create({
-    input: {
-        width: 280,
-        color: '#000000',
-        borderBottomWidth: 1,
-        borderBottomColor: '#000000',
-        textAlign: 'center',
-        fontSize: 20,
+    container: {
+        flex: 1,
+        justifyContent: 'center',
+        backgroundColor: colorStyle.Navigation.background,
     },
     heartRateButton: {
         alignItems: 'center',

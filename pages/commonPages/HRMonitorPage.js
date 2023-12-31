@@ -2,11 +2,10 @@
  * @format
  * @flow strict-local
 */
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { useFocusEffect } from '@react-navigation/native';
 import {
     SafeAreaView,
-    ScrollView,
     StyleSheet,
     Text,
     Image,
@@ -24,13 +23,19 @@ import { colorStyle } from '../colorStyle';
 
 export function HRMonitorPage({ navigation, route }) {
     const totalFramesCount = 350
+    const counter = useSharedValue(0)
+
+    // Camera
+    const devices = useCameraDevices('wide-angle-camera')
+    const device = devices.back
+
+    // State
     const [state, setState] = useState('BEGIN')
     const [percent, setPercent] = useState(0)
 
     // UI Elements State
     const descText = useSharedValue('用食指蓋住後置攝像頭，保持食指不動')
     const titleText = useSharedValue('準備檢測')
-
     const descProps = useAnimatedProps(() => {
         return {
             text: descText.value,
@@ -55,11 +60,6 @@ export function HRMonitorPage({ navigation, route }) {
             setPercent(count * 100 / totalFrames)
         }
     }
-
-    const devices = useCameraDevices('wide-angle-camera')
-    const device = devices.back
-
-    const counter = useSharedValue(0)
 
     const frameProcessor = useFrameProcessor(
         frame => {
@@ -88,12 +88,10 @@ export function HRMonitorPage({ navigation, route }) {
             }
         }, [])
 
-    useEffect(() => {
-        changeKeepAwake(true)
-    }, [])
-
     useFocusEffect(
         React.useCallback(() => {
+            KeepAwake.activate()
+
             const onBackPress = () => {
                 return true
             }
@@ -107,71 +105,60 @@ export function HRMonitorPage({ navigation, route }) {
     );
 
     // Navigation
-    async function onNext() {
-        changeKeepAwake(false)
+    async function onBack() {
+        KeepAwake.deactivate()
         navigation.goBack()
-    }
-
-    // KeepAwake
-    function changeKeepAwake(shouldBeAwake) {
-        if (shouldBeAwake) {
-            KeepAwake.activate();
-        } else {
-            KeepAwake.deactivate();
-        }
     }
 
     return (
         <SafeAreaView style={styles.container}>
-            <ScrollView>
-                <View style={styles.camera}>
-                    {device != null && <Camera
-                        style={StyleSheet.absoluteFill}
-                        device={device}
-                        isActive={state !== "END"}
-                        fps={30}
-                        torch={'on'}
-                        frameProcessor={frameProcessor}
-                    />
-                    }
-                </View>
-                <Reanimated.View style={styles.guideArea}>
-                    <ProgressCircle
-                        percent={percent}
-                        radius={138}
-                        borderWidth={10}
-                        color="#FF6359"
-                        shadowColor="#FFE5BD"
-                        bgColor={colorStyle.Navigation.background}
-                    >
-                        {state != 'END' &&
-                            <Image
-                                style={{ width: 190, height: 190, alignItems: 'center', margin: 100 }}
-                                source={require('../../source/finger.png')}
-                                resizeMode='contain'
-                            />
-                        }
-                        {state == 'END' &&
-                            <Image
-                                style={{ width: 190, height: 190, alignItems: 'center', margin: 100 }}
-                                source={require('../../source/heart.png')}
-                                resizeMode='contain'
-                            />
-                        }
-                    </ProgressCircle>
-                    <AnimateableText style={styles.guideTitle} animatedProps={titleProps} />
-                    <AnimateableText style={styles.guideSubtitle} animatedProps={descProps} />
-                </Reanimated.View>
-
-                {state == 'END' &&
-                    <TouchableOpacity
-                        style={styles.button}
-                        onPress={onNext}
-                    >
-                        <Text style={styles.buttonText}>{'完成'}</Text>
-                    </TouchableOpacity>
+            <View style={styles.camera}>
+                {device != null && <Camera
+                    style={StyleSheet.absoluteFill}
+                    device={device}
+                    isActive={state !== "END"}
+                    fps={30}
+                    torch={'on'}
+                    frameProcessor={frameProcessor}
+                />
                 }
-            </ScrollView>
+            </View>
+            <Reanimated.View style={styles.guideArea}>
+                <ProgressCircle
+                    percent={percent}
+                    radius={138}
+                    borderWidth={10}
+                    color="#FF6359"
+                    shadowColor="#FFE5BD"
+                    bgColor={colorStyle.Navigation.background}
+                >
+                    {state != 'END' &&
+                        <Image
+                            style={{ width: 190, height: 190, alignItems: 'center', margin: 100 }}
+                            source={require('../../source/finger.png')}
+                            resizeMode='contain'
+                        />
+                    }
+                    {state == 'END' &&
+                        <Image
+                            style={{ width: 190, height: 190, alignItems: 'center', margin: 100 }}
+                            source={require('../../source/heart.png')}
+                            resizeMode='contain'
+                        />
+                    }
+                </ProgressCircle>
+                <AnimateableText style={styles.guideTitle} animatedProps={titleProps} />
+                <AnimateableText style={styles.guideSubtitle} animatedProps={descProps} />
+            </Reanimated.View>
+
+            {state == 'END' &&
+                <TouchableOpacity
+                    style={styles.button}
+                    onPress={onBack}
+                >
+                    <Text style={styles.buttonText}>{'完成'}</Text>
+                </TouchableOpacity>
+            }
         </SafeAreaView >
     )
 }
@@ -179,7 +166,7 @@ export function HRMonitorPage({ navigation, route }) {
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        justifyContent: 'flex-start',
+        justifyContent: 'center',
         backgroundColor: colorStyle.Navigation.background,
     },
     guideArea: {
@@ -216,6 +203,6 @@ const styles = StyleSheet.create({
     camera: {
         alignSelf: 'stretch',
         textAlign: 'center',
-        height: 142,
+        height: 0, // Hide camera preview
     },
 });

@@ -1,7 +1,3 @@
-/** Detecting heart rate
- * @format
- * @flow strict-local
-*/
 import React, { useEffect, useState, useCallback } from 'react';
 import {
     Text,
@@ -43,7 +39,7 @@ export function HRMPermissionPage({ navigation, route }) {
     return (
         <View style={styles.container}>
             <Text style={styles.permissionText}>
-                「運動樂」需要
+                「HR Monitor」需要
                 <Text style={styles.camerePermissionText}> 相機權限</Text>.{' '}
             </Text>
             <Image

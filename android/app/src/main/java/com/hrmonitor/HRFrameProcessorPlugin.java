@@ -82,30 +82,6 @@ public class HRFrameProcessorPlugin extends FrameProcessorPlugin {
         float saturation = hsv[1];
         float brightness = hsv[2];
 
-        // int rd = Color.red(average);
-        // int gd = Color.green(average);
-        // int bd = Color.blue(average);
-
-        // float maxV = Math.max(rd, Math.max(gd, bd));
-        // float minV = Math.min(rd, Math.min(gd, bd));
-        // float hue = 0.0f;
-        // float saturation = 0.0f;
-        // float brightness = maxV;
-        // float d = maxV - minV;
-        // saturation = maxV == 0.0f ? 0.0f : d / minV;
-        // if (maxV == minV) {
-        // hue = 0.0f;
-        // } else {
-        // if (maxV == rd) {
-        // hue = (gd - bd) / d + (gd < bd ? 6.0f : 0.0f);
-        // } else if (maxV == gd) {
-        // hue = (bd - rd) / d + 2.0f;
-        // } else if (maxV == bd) {
-        // hue = (rd - gd) / d + 4.0f;
-        // }
-        // hue /= 6.0f;
-        // }
-
         if (saturation > 0.5 && brightness > 0.5) {
             state = "RECORDING";
             BPM = (int) (60.0f / pulseDetector.getAverage());
